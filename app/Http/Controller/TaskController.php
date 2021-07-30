@@ -4,6 +4,7 @@
 namespace App\Http\Controller;
 
 
+use App\Models\Task;
 use Config\Validation;
 
 class TaskController extends BaseController
@@ -20,12 +21,10 @@ class TaskController extends BaseController
         if(request('page'))
             $current_page = (int)request('page') <= 0 ? 1 : (int)request('page') ;
 
-        $perPage = 3;
+        $perPage = 10;
         $offset = $perPage * $current_page - $perPage;
-        $total = pdo()->query('select COUNT(*) as count from `tasks`')->fetchColumn();
-
-        $tasks = pdo()
-            ->query("select * from `tasks` order by `status` limit $perPage OFFSET $offset");
+        $total = Task::count();
+        $tasks = Task::orderBy('status')->limit($perPage)->offset($offset)->get();
 
         $paginate = compact('perPage', 'current_page', 'total');
         return view("tasks/index", compact('tasks', 'statuses', 'paginate'));

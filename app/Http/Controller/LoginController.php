@@ -10,19 +10,16 @@ class LoginController extends BaseController
 {
     public function show()
     {
-        if(auth())  redirect('/');
-
         return view('login');
     }
 
     public function login()
     {
-        if(auth())  redirect('/');
-
-        (new Validation())
+        $validator = (new Validation())
             ->check("password", "required")
-            ->check("email", "required")
-            ->check("email", "email");
+            ->check("email", "required");
+
+        if(!$validator->validated()) return;
 
         $user = pdo()
             ->prepare("select `id`,`email`, `password` FROM `users` where `email` = :email and `password` = :password");

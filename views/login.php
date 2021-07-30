@@ -23,9 +23,11 @@
                         <?php endif; ?>
                         <h1>Login</h1>
                         <form action="/login" method="post">
+
+                            <?php csrf_field(); ?>
                             <div class="form-group">
                                 <label for="">Email</label>
-                                <input class="form-control" type="text" name="email">
+                                <input class="form-control" type="text" name="email" value="<?= old('email') ?>">
                                 <?php if(errors('email')):  ?>
                                     <span class="text-danger"><?= errors('email') ?></span>
                                 <?php endif; ?>
