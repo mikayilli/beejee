@@ -19,23 +19,24 @@
                 <div class="card">
                     <div class="card-body">
                         <form action="/tasks" method="post">
+                            <?php csrf_field() ?>
                             <div class="form-group">
                                 <label for="">Username</label>
-                                <input type="text" name="username" class="form-control">
+                                <input type="text" name="username" class="form-control"  value="<?= old('username') ?>">
                                 <?php if(errors('username')):  ?>
                                     <span class="text-danger"><?= errors('username') ?></span>
                                 <?php endif; ?>
                             </div>
                             <div class="form-group">
                                 <label for="">Email</label>
-                                <input type="text" name="email" class="form-control">
+                                <input type="text" name="email" class="form-control" value="<?= old('email') ?>">
                                 <?php if(errors('email')):  ?>
                                     <span class="text-danger"><?= errors('email') ?></span>
                                 <?php endif; ?>
                             </div>
                             <div class="form-group">
                                 <label for="">Text</label>
-                                <textarea name="text" class="form-control"></textarea>
+                                <textarea name="text" class="form-control"><?= old('text') ?></textarea>
                                 <?php if(errors('text')):  ?>
                                     <span class="text-danger"><?= errors('text') ?></span>
                                 <?php endif; ?>
